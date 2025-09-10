@@ -171,10 +171,10 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
           connector: { id: 'prices' },
           columnName: 'y',
           title: {
-            text: 'Latest NAV',
-            style: { fontSize: '24px', paddingBottom: '8px'}
+            text: 'NAV',
+            style: { paddingBottom: '8px'}
           },
-          valueFormatter: (value: number) => `${Number(value).toFixed(3)} TRY`,
+          valueFormatter: (value: number) => `${Number(value).toFixed(1)} TRY`,
           minFontSize: 26,
           subtitle: {
             text: 'As of yesterday',
@@ -191,8 +191,8 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
           type: 'KPI',
           renderTo: 'kpi-cell-1',
           title: {
-            text: 'YTD Return',
-            style: { fontSize: '24px', paddingBottom: '8px' }
+            text: 'YTD',
+            style: { paddingBottom: '8px' }
           },
           connector: { id: 'ytd' },
           columnName: 'ytd',
@@ -214,14 +214,14 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
           renderTo: 'kpi-cell-2',
            title: {
             text: 'Volatility',
-            style: { fontSize: '24px', paddingBottom: '8px' }
+            style: { paddingBottom: '8px' }
           },
           connector: { id: 'volatility' },
           columnName: 'volatility',
           valueFormatter: (value: number) => `${Number(value).toFixed(2)}%`,
           minFontSize: 26,
           subtitle: {
-            text: 'Annualized Standard Deviation (daily)',
+            text: 'Standard Deviation',
             style: { color: '#6B7280', fontSize: '12px', fontWeight: '500', paddingTop: "12px" }
           },
           style: {
