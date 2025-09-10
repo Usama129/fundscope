@@ -1,0 +1,13 @@
+<div class="controls">
+  <mat-form-field appearance="outline" class="fund-select">
+    <mat-label>Select Fund</mat-label>
+    <mat-select [(ngModel)]="selectedFund" (selectionChange)="switchFund($event.value)">
+      @for (fund of getFunds(); track fund) {
+        <mat-option [value]="fund">{{ fund }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<div #host id="dashboard-container"></div>
+<span class="disclaimer">Disclaimer: This dashboard uses AI-generated mutual fund data</span>
