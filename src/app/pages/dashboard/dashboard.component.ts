@@ -3,6 +3,8 @@ import { Dashboards } from "../../lib/highcharts-dashboards";
 import GtaData from "../../data/GTA.json";
 import GtlData from "../../data/GTL.json";
 import GzpData from "../../data/GZP.json";
+import GbvData from "../../data/GBV.json";
+import GjhData from "../../data/GJH.json";
 import { FundPricePoint } from '../../types/FundPricePoint';
 import { getDailyReturns, stdev } from '../../helper';
 import { MatSelectModule } from '@angular/material/select';
@@ -10,10 +12,20 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
-enum Fund {
+enum FundCode {
   GTA = "GTA",
   GTL = "GTL",
-  GZP = "GZP"
+  GZP = "GZP",
+  GBV = "GBV",
+  GJH = "GJH"
+}
+
+const FundDataMap = {
+  [FundCode.GTA]: GtaData,
+  [FundCode.GTL]: GtlData,
+  [FundCode.GZP]: GzpData,
+  [FundCode.GBV]: GbvData,
+  [FundCode.GJH]: GjhData
 }
 
 @Component({
@@ -29,7 +41,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   private options: any = {};
   private board?: any;
 
-  selectedFund: Fund = Fund.GTA;
+  selectedFund: FundCode = FundCode.GTA;
   private currentFundData: FundPricePoint[] = [];
 
   constructor(public elementRef: ElementRef) { }
@@ -43,11 +55,11 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     this.board = Dashboards.board(this.host.nativeElement, this.options);
   }
 
-  getFunds(): Fund[] {
-    return Object.values(Fund);
+  getFunds(): FundCode[] {
+    return Object.values(FundCode);
   }
 
-  switchFund(symbol: Fund) {
+  switchFund(symbol: FundCode) {
     this.selectedFund = symbol;
     this.setFundData();
 
@@ -61,18 +73,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private setFundData(): void {
-    let rows: FundPricePoint[] = [];
-    switch (this.selectedFund) {
-      case Fund.GTA:
-        rows = GtaData as FundPricePoint[];
-        break;
-      case Fund.GTL:
-        rows = GtlData as FundPricePoint[];
-        break;
-      case Fund.GZP:
-        rows = GzpData as FundPricePoint[];
-        break;
-    }
+    let rows: FundPricePoint[] = FundDataMap[this.selectedFund];
     this.currentFundData = rows
       .filter(r => r && r.date)
       .sort((a, b) => Date.parse(a.date) - Date.parse(b.date));
