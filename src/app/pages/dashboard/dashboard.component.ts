@@ -20,6 +20,14 @@ enum FundCode {
   GJH = "GJH"
 }
 
+const FundName = {
+  [FundCode.GTA]: "GARANTİ PORTFÖY ALTIN FONU",
+  [FundCode.GTL]: "Garanti Portföy Birinci Para Piyasası (TL) Fonu",
+  [FundCode.GZP]: "GARANTİ PORTFÖY BİRİNCİ FON SEPETİ FONU",
+  [FundCode.GBV]: "Blockchain Teknolojileri Değişken Fon",
+  [FundCode.GJH]: "GARANTİ PORTFÖY PARA PİYASASI SERBEST (TL) FONU"
+}
+
 const FundDataMap = {
   [FundCode.GTA]: GtaData,
   [FundCode.GTL]: GtlData,
@@ -135,7 +143,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
           },
           chartOptions: {
             chart: { type: 'line' },
-            title: { text: `Fund Close Price (TRY) · ${this.selectedFund}` },
+            title: { text: `Fund NAV Change (TRY) · ${this.selectedFund} - ${FundName[this.selectedFund].toUpperCase()}` },
             rangeSelector: {
               selected: 3,
               buttons: [
