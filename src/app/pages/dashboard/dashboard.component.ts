@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } fr
 import { Dashboards } from "../../lib/highcharts-dashboards";
 import GtaData from "../../data/GTA.json";
 import GtlData from "../../data/GTL.json";
+import GzpData from "../../data/GZP.json";
 import { FundPricePoint } from '../../types/FundPricePoint';
 import { getDailyReturns, stdev } from '../../helper';
 import { MatSelectModule } from '@angular/material/select';
@@ -11,7 +12,8 @@ import { CommonModule } from '@angular/common';
 
 enum Fund {
   GTA = "GTA",
-  GTL = "GTL"
+  GTL = "GTL",
+  GZP = "GZP"
 }
 
 @Component({
@@ -66,6 +68,9 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
         break;
       case Fund.GTL:
         rows = GtlData as FundPricePoint[];
+        break;
+      case Fund.GZP:
+        rows = GzpData as FundPricePoint[];
         break;
     }
     this.currentFundData = rows
